@@ -1,0 +1,37 @@
+{
+  "name": "stk3700-gcc",
+  "version": "0.0.0",
+  "similarTo": [
+    "efm32gg990f",
+    "efm32gg",
+    "efm32",
+    "cortex-m3",
+    "armv7-m",
+    "arm",
+    "*"
+  ],
+  "toolchain": "CMake/toolchain.cmake",
+  "debug-server": [
+    "JLinkGDBServer",
+    "-if",
+    "SWD",
+    "-speed",
+    "4000",
+    "-device",
+    "EFM32GG990F1024",
+    "-log",
+    "/tmp/jlink-efm.log"
+  ],
+  "debug": [
+    "arm-none-eabi-gdb",
+    "$program",
+    "--eval",
+    "target remote localhost:2331",
+    "-ex",
+    "mon device EFM32GG990F1024",
+    "-ex",
+    "mon flash download 1",
+    "-ex",
+    "mon SWOStart 0 875000Hz"
+  ]
+}
