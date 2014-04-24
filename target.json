@@ -1,6 +1,6 @@
 {
   "name": "stk3700-gcc",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "similarTo": [
     "efm32gg990f",
     "efm32gg",
