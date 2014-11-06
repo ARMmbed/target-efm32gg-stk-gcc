@@ -1,0 +1,44 @@
+# Copyright (C) 2014 ARM Limited. All rights reserved. 
+
+message("mbedOS-GNU-CXX.cmake included")
+
+# can't test the compiler because it cross-compiles
+set(CMAKE_CXX_COMPILER_WORKS TRUE)
+
+
+execute_process(
+    COMMAND "${CMAKE_CXX_COMPILER}" "--version"
+    OUTPUT_VARIABLE _ARM_GNU_GCC_VERSION_OUTPUT
+)
+string(REGEX REPLACE ".* ([0-9]+[.][0-9]+[.][0-9]+) .*" "\\1" _ARM_GNU_GCC_VERSION "${_ARM_GNU_GCC_VERSION_OUTPUT}")
+message("GCC version is: ${_ARM_GNU_GCC_VERSION}")
+
+
+# CMake treats objective C as CXX
+set(CMAKE_CXX_CREATE_SHARED_LIBRARY "echo 'shared libraries not supported' && 1")
+set(CMAKE_CXX_CREATE_SHARED_MODULE  "echo 'shared modules not supported' && 1")
+set(CMAKE_CXX_CREATE_STATIC_LIBRARY "<CMAKE_AR> -cr <LINK_FLAGS> <TARGET> <OBJECTS>")
+set(CMAKE_CXX_COMPILE_OBJECT        "<CMAKE_CXX_COMPILER> ${YOTTA_TARGET_DEFINITIONS} <DEFINES> <FLAGS> -o <OBJECT> -c <SOURCE>")
+set(CMAKE_CXX_LINK_EXECUTABLE       "<CMAKE_CXX_COMPILER> <CMAKE_CXX_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES> -lstdc++ -lsupc++ -o <TARGET>")
+
+set(CMAKE_CXX_FLAGS_INIT "${CMAKE_C_FLAGS_INIT} -fno-exceptions -fno-unwind-tables")
+set(CMAKE_CXX_FLAGS_DEBUG_INIT          "${CMAKE_CXX_FLAGS_INIT} -g")
+set(CMAKE_CXX_FLAGS_MINSIZEREL_INIT     "${CMAKE_CXX_FLAGS_INIT} -Os -DNDEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE_INIT        "${CMAKE_CXX_FLAGS_INIT} -Os -DNDEBUG")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO_INIT "${CMAKE_CXX_FLAGS_INIT} -Os -g -DNDEBUG")
+set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "-isystem ")
+
+
+include_directories(SYSTEM 
+    # NB: no compiler/system c library: the c library is a module like
+    # everything else
+    # !!! TODO: module-ify the c++ lib, then these will also no longer be hardcoded    
+    "${ARM_GCC_PATH}/arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}"
+    "${ARM_GCC_PATH}/arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}/arm-none-eabi"
+    "${ARM_GCC_PATH}/arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}/backward"
+    "/usr/local/Cellar/arm-none-eabi-gcc/4.8-2013-q4-major/bin/../lib/gcc/arm-none-eabi/${_ARM_GNU_GCC_VERSION}/../../../../arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}"
+    "/usr/local/Cellar/arm-none-eabi-gcc/4.8-2013-q4-major/bin/../lib/gcc/arm-none-eabi/${_ARM_GNU_GCC_VERSION}/../../../../arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}/arm-none-eabi"
+    "/usr/local/Cellar/arm-none-eabi-gcc/4.8-2013-q4-major/bin/../lib/gcc/arm-none-eabi/${_ARM_GNU_GCC_VERSION}/../../../../arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}/backward"
+)
+
+
