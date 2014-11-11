@@ -9,6 +9,7 @@
     "cortex-m3",
     "armv7-m",
     "arm",
+    "gcc",
     "*"
   ],
   "toolchain": "CMake/toolchain.cmake",

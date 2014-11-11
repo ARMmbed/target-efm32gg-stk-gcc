@@ -11,7 +11,7 @@ set(CMAKE_C_COMPILE_OBJECT        "<CMAKE_C_COMPILER> ${YOTTA_TARGET_DEFINITIONS
 set(CMAKE_C_LINK_EXECUTABLE       "<CMAKE_C_COMPILER> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES> -o <TARGET>")
 
 
-set(CMAKE_C_FLAGS_INIT "-std=gnu99 -fno-exceptions -fno-unwind-tables -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -nostdinc -nostdlib -ffreestanding -fno-builtin -ffunction-sections -fdata-sections -Wall -Wextra -D__thumb2__")
+set(CMAKE_C_FLAGS_INIT "-fno-exceptions -fno-unwind-tables -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -ffunction-sections -fdata-sections -Wall -Wextra -D__thumb2__")
 set(CMAKE_C_FLAGS_DEBUG_INIT          "${CMAKE_C_FLAGS_INIT} -g")
 set(CMAKE_C_FLAGS_MINSIZEREL_INIT     "${CMAKE_C_FLAGS_INIT} -Os -DNDEBUG")
 set(CMAKE_C_FLAGS_RELEASE_INIT        "${CMAKE_C_FLAGS_INIT} -Os -DNDEBUG")
@@ -19,7 +19,7 @@ set(CMAKE_C_FLAGS_RELWITHDEBINFO_INIT "${CMAKE_C_FLAGS_INIT} -Os -g -DNDEBUG")
 set(CMAKE_INCLUDE_SYSTEM_FLAG_C "-isystem ")
 
 
-set(CMAKE_ASM_FLAGS_INIT  "-fno-exceptions -fno-unwind-tables -mcpu=cortex-m3 -mthumb -x assembler-with-cpp -mfloat-abi=soft -nostdinc -nostdlib -ffreestanding -fno-builtin -D__thumb2__")
+set(CMAKE_ASM_FLAGS_INIT  "-fno-exceptions -fno-unwind-tables -mcpu=cortex-m3 -mthumb -x assembler-with-cpp -mfloat-abi=soft -D__thumb2__")
 set(CMAKE_ASM_FLAGS_DEBUG_INIT          "${CMAKE_ASM_FLAGS_INIT} -g")
 set(CMAKE_ASM_FLAGS_MINSIZEREL_INIT     "${CMAKE_ASM_FLAGS_INIT} -Os -DNDEBUG")
 set(CMAKE_ASM_FLAGS_RELEASE_INIT        "${CMAKE_ASM_FLAGS_INIT} -Os -DNDEBUG")
@@ -35,7 +35,7 @@ get_filename_component(_ARM_GNU_LIBGCC_DIR ${_ARM_GNU_LIBGCC} DIRECTORY)
 # set link flags
 set(CMAKE_C_LINK_FLAGS "")
 set(CMAKE_MODULE_LINKER_FLAGS_INIT
-    "-fno-exceptions -fno-unwind-tables -nostdlib -nodefaultlibs -mcpu=cortex-m3 -mthumb -Wl,--gc-sections -Wl,--sort-common -Wl,--sort-section=alignment"
+    "-fno-exceptions -fno-unwind-tables -mcpu=cortex-m3 -mthumb -Wl,--gc-sections -Wl,--sort-common -Wl,--sort-section=alignment"
 )
 
 # set the link script
