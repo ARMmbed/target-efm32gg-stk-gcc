@@ -10,11 +10,14 @@ set(CMAKE_SYSTEM_NAME mbedOS)
 set(CMAKE_SYSTEM_VERSION 1)
 set(CMAKE_SYSTEM_PROCESSOR "armv7-m")
 
-# !!! FIXME: this line should be removed: TARGET_LIKE_XXX definitions are now
-# provided by the yotta-generated CMakeLists
-# (this line currently provides definitions that some ported components like
-#  need to configure themselves)
-set(YOTTA_TARGET_DEFINITIONS "-DSTK3700 -DEFM32GG990F1024 -DEFM32GG -DEFM32")
+# provide compatibility definitions for compiling with this target: these are
+# definitions that legacy code assumes will be defined. Before adding something
+# here, think VERY CAREFULLY if you can't change anywhere that relies on the
+# definition that you're about to add to rely on the TARGET_LIKE_XXX
+# definitions that yotta provides based on the target.json file.
+#
+#                             <---------- needed by cmsis + emlib --------> <-----------for mbed sdk---------->
+set(YOTTA_TARGET_DEFINITIONS "-DSTK3700 -DEFM32GG990F1024 -DEFM32GG -DEFM32 -DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM")
 
 
 # Set the compiler to ARM-GCC
