@@ -1,4 +1,4 @@
-# Copyright (C) 2014 ARM Limited. All rights reserved. 
+# Copyright (C) 2014 ARM Limited. All rights reserved.
 
 message("mbedOS-GNU-C.cmake included")
 
@@ -12,10 +12,10 @@ set(CMAKE_C_LINK_EXECUTABLE       "<CMAKE_C_COMPILER> <CMAKE_C_LINK_FLAGS> <LINK
 
 
 set(CMAKE_C_FLAGS_INIT "-fno-exceptions -fno-unwind-tables -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -ffunction-sections -fdata-sections -Wall -Wextra -D__thumb2__")
-set(CMAKE_C_FLAGS_DEBUG_INIT          "${CMAKE_C_FLAGS_INIT} -g")
-set(CMAKE_C_FLAGS_MINSIZEREL_INIT     "${CMAKE_C_FLAGS_INIT} -Os -DNDEBUG")
-set(CMAKE_C_FLAGS_RELEASE_INIT        "${CMAKE_C_FLAGS_INIT} -Os -DNDEBUG")
-set(CMAKE_C_FLAGS_RELWITHDEBINFO_INIT "${CMAKE_C_FLAGS_INIT} -Os -g -DNDEBUG")
+set(CMAKE_C_FLAGS_DEBUG_INIT          "${CMAKE_C_FLAGS_INIT} -std=c99 -g")
+set(CMAKE_C_FLAGS_MINSIZEREL_INIT     "${CMAKE_C_FLAGS_INIT} -std=c99 -Os -DNDEBUG")
+set(CMAKE_C_FLAGS_RELEASE_INIT        "${CMAKE_C_FLAGS_INIT} -std=c99 -Os -DNDEBUG")
+set(CMAKE_C_FLAGS_RELWITHDEBINFO_INIT "${CMAKE_C_FLAGS_INIT} -std=c99 -Os -g -DNDEBUG")
 set(CMAKE_INCLUDE_SYSTEM_FLAG_C "-isystem ")
 
 
@@ -41,4 +41,4 @@ set(CMAKE_MODULE_LINKER_FLAGS_INIT
 # set the link script
 set(CMAKE_EXE_LINKER_FLAGS_INIT
     "${CMAKE_MODULE_LINKER_FLAGS_INIT} -T${CMAKE_CURRENT_LIST_DIR}/../../ld/efm32gg.ld"
-) 
+)

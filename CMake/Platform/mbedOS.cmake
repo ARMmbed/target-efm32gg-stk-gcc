@@ -1,4 +1,4 @@
-# Copyright (C) 2014 ARM Limited. All rights reserved. 
+# Copyright (C) 2014 ARM Limited. All rights reserved.
 
 # This is a platform definition file for Yottos, there isn't much here because
 # most of our setup is related to the compiler used
@@ -15,7 +15,7 @@ set(CMAKE_ASM_OUTPUT_EXTENSION ".o")
 set(CMAKE_CXX_OUTPUT_EXTENSION ".o")
 
 # adjust the default behaviour of the FIND_XXX() commands:
-# search headers and libraries in the target environment, search 
+# search headers and libraries in the target environment, search
 # programs in the host environment
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)

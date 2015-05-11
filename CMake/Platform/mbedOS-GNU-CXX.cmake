@@ -1,4 +1,4 @@
-# Copyright (C) 2014 ARM Limited. All rights reserved. 
+# Copyright (C) 2014 ARM Limited. All rights reserved.
 
 message("mbedOS-GNU-CXX.cmake included")
 
@@ -25,18 +25,3 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL_INIT     "${CMAKE_CXX_FLAGS_INIT} -Os -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELEASE_INIT        "${CMAKE_CXX_FLAGS_INIT} -Os -DNDEBUG")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO_INIT "${CMAKE_CXX_FLAGS_INIT} -Os -g -DNDEBUG")
 set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "-isystem ")
-
-
-#include_directories(SYSTEM 
-#    # NB: no compiler/system c library: the c library is a module like
-#    # everything else
-#    # !!! TODO: module-ify the c++ lib, then these will also no longer be hardcoded    
-#    "${ARM_GCC_PATH}/arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}"
-#    "${ARM_GCC_PATH}/arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}/arm-none-eabi"
-#    "${ARM_GCC_PATH}/arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}/backward"
-#    "/usr/local/Cellar/arm-none-eabi-gcc/4.8-2013-q4-major/bin/../lib/gcc/arm-none-eabi/${_ARM_GNU_GCC_VERSION}/../../../../arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}"
-#    "/usr/local/Cellar/arm-none-eabi-gcc/4.8-2013-q4-major/bin/../lib/gcc/arm-none-eabi/${_ARM_GNU_GCC_VERSION}/../../../../arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}/arm-none-eabi"
-#    "/usr/local/Cellar/arm-none-eabi-gcc/4.8-2013-q4-major/bin/../lib/gcc/arm-none-eabi/${_ARM_GNU_GCC_VERSION}/../../../../arm-none-eabi/include/c++/${_ARM_GNU_GCC_VERSION}/backward"
-#)
-
-
