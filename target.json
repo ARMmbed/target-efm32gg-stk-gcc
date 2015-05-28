@@ -1,6 +1,6 @@
 {
   "name": "stk3700-efm32gg-gcc",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "GCC target description for the STK3700 dev board.",
   "licenses": [
     {
