@@ -17,7 +17,7 @@ set(CMAKE_SYSTEM_PROCESSOR "armv7-m")
 # definitions that yotta provides based on the target.json file.
 #
 #                             <-------- needed by cmsis + emlib --------> <--------------------for mbed sdk-------------------->
-set(YOTTA_TARGET_DEFINITIONS "-DWATCH -DEFM32GG995F1024 -DEFM32GG -DEFM32 -DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM -DMBED_OPERATORS")
+set(YOTTA_TARGET_DEFINITIONS "-DSTK3700 -DEFM32GG990F1024 -DEFM32GG -DEFM32 -DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM -DMBED_OPERATORS")
 
 # Set the compiler to ARM-GCC
 include(CMakeForceCompiler)
