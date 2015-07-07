@@ -19,7 +19,7 @@ __vector_size = 0xE0;
  * with other linker script that defines memory regions FLASH and RAM.
  * It references following symbols, which must be defined in code:
  *   Reset_Handler : Entry of reset handler
- * 
+ *
  * It defines following symbols, which code can use without definition:
  *   __exidx_start
  *   __exidx_end
@@ -72,7 +72,7 @@ SECTIONS
     KEEP(*(.eh_frame*))
   } > FLASH
 
-  .ARM.extab : 
+  .ARM.extab :
   {
     *(.ARM.extab* .gnu.linkonce.armextab.*)
   } > FLASH
@@ -85,7 +85,18 @@ SECTIONS
   __exidx_end = .;
 
   __etext = .;
-  
+
+  /* Set stack size. Stack overflow will trigger HardFault.
+   */
+  .stack (NOLOAD):
+  {
+      __stack_start__ = .;
+      *(.stack*);
+      . += 0x1000 - (. - __stack_start__);
+      . = ALIGN(4);
+      __stack_end__ = .;
+  } > RAM
+
   .data : AT (__etext)
   {
     __data_start__ = .;
@@ -135,26 +146,25 @@ SECTIONS
   .heap :
   {
     __end__ = .;
-    end = __end__;
-    _end = __end__;
+
+    __heap_start = .;
     *(.heap*)
-    __HeapLimit = .;
+
   } > RAM
 
-  /* .stack_dummy section doesn't contains any symbols. It is only
-   * used for linker to calculate size of stack sections, and assign
-   * values to stack symbols later */
-  .stack_dummy :
-  {
-    *(.stack)
-  } > RAM
+  /* heap limit is all the available memory, */
+  __heap_end = ORIGIN(RAM) + LENGTH(RAM);
+
+  PROVIDE(__heap_size = __heap_end - __heap_start);
+  PROVIDE(__mbed_sbrk_start = __heap_start);
+  PROVIDE(__mbed_krbs_start = __heap_end);
 
   /* Set stack top to end of RAM, and stack limit move down by
    * size of stack_dummy section */
-  __StackTop = ORIGIN(RAM) + LENGTH(RAM);
-  __StackLimit = __StackTop - SIZEOF(.stack_dummy);
+  __StackTop = __stack_end__;
+  __StackLimit = __stack_start__;
   PROVIDE(__stack = __StackTop);
 
   /* Check if data + heap + stack exceeds RAM limit */
-  ASSERT(__StackLimit >= __HeapLimit, "region RAM overflowed with stack")
+  ASSERT(__end__ <= __heap_end, "region RAM overflowed with stack")
 }

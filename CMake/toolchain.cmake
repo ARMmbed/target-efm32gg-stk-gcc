@@ -1,14 +1,9 @@
 # Copyright (C) 2014 ARM Limited. All rights reserved.
 
-# search path for included .cmake files (set this as early as possible, so that
-# indirect includes still use it)
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}")
-
-include(CMakeForceCompiler)
-
-set(CMAKE_SYSTEM_NAME mbedOS)
-set(CMAKE_SYSTEM_VERSION 1)
-set(CMAKE_SYSTEM_PROCESSOR "armv7-m")
+if(TARGET_STK3700_EFM32GG_GCC_TOOLCHAIN_INCLUDED)
+    return()
+endif()
+set(TARGET_STK3700_EFM32GG_GCC_TOOLCHAIN_INCLUDED 1)
 
 # provide compatibility definitions for compiling with this target: these are
 # definitions that legacy code assumes will be defined. Before adding something
@@ -16,11 +11,16 @@ set(CMAKE_SYSTEM_PROCESSOR "armv7-m")
 # definition that you're about to add to rely on the TARGET_LIKE_XXX
 # definitions that yotta provides based on the target.json file.
 #
-#                             <-------- needed by cmsis + emlib --------> <--------------------for mbed sdk-------------------->
-set(YOTTA_TARGET_DEFINITIONS "-DSTK3700 -DEFM32GG990F1024 -DEFM32GG -DEFM32 -DTOOLCHAIN_GCC -DTOOLCHAIN_GCC_ARM -DMBED_OPERATORS")
+add_definitions("-DSTK3700 -DEFM32GG990F1024 -DEFM32GG -DEFM32")
 
-# Set the compiler to ARM-GCC
-include(CMakeForceCompiler)
+# append non-generic flags, and set EFM32GG-specific link script
 
-cmake_force_c_compiler(arm-none-eabi-gcc GNU)
-cmake_force_cxx_compiler(arm-none-eabi-g++ GNU)
+set(_CPU_COMPILATION_OPTIONS "-mcpu=cortex-m3 -mthumb -D__thumb2__")
+
+set(CMAKE_C_FLAGS_INIT             "${CMAKE_C_FLAGS_INIT} ${_CPU_COMPILATION_OPTIONS}")
+set(CMAKE_ASM_FLAGS_INIT           "${CMAKE_ASM_FLAGS_INIT} ${_CPU_COMPILATION_OPTIONS}")
+set(CMAKE_CXX_FLAGS_INIT           "${CMAKE_CXX_FLAGS_INIT} ${_CPU_COMPILATION_OPTIONS}")
+set(CMAKE_MODULE_LINKER_FLAGS_INIT "${CMAKE_MODULE_LINKER_FLAGS_INIT} -mcpu=cortex-m3 -mthumb")
+set(CMAKE_EXE_LINKER_FLAGS_INIT    "${CMAKE_EXE_LINKER_FLAGS_INIT} -mcpu=cortex-m3 -mthumb -T\"${CMAKE_CURRENT_LIST_DIR}/../ld/efm32gg.ld\"")
+
+
