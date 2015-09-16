@@ -39,16 +39,14 @@
     "-log",
     "/tmp/jlink-efm.log"
   ],
-  "debug": [
-    "arm-none-eabi-gdb",
-    "$program",
-    "--eval",
-    "target remote localhost:2331",
-    "-ex",
-    "mon device EFM32GG990F1024",
-    "-ex",
-    "mon flash download 1",
-    "-ex",
-    "mon SWO Start 0 875000Hz"
-  ]
+  "scripts": {
+    "debug": [
+      "valinor",
+      "-t",
+      "uvision",
+      "--target",
+      "stk3700-gcc",
+      "$program"
+    ]
+  }
 }
