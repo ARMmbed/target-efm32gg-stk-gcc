@@ -15,7 +15,7 @@ add_definitions("-DSTK3700 -DEFM32GG990F1024 -DEFM32GG -DEFM32")
 
 # append non-generic flags, and set EFM32GG-specific link script
 
-set(_CPU_COMPILATION_OPTIONS "-mcpu=cortex-m3 -mthumb -D__thumb2__")
+set(_CPU_COMPILATION_OPTIONS "-mcpu=cortex-m3 -mthumb -D__thumb2__ -g -gdwarf-2")
 
 set(CMAKE_C_FLAGS_INIT             "${CMAKE_C_FLAGS_INIT} ${_CPU_COMPILATION_OPTIONS}")
 set(CMAKE_ASM_FLAGS_INIT           "${CMAKE_ASM_FLAGS_INIT} ${_CPU_COMPILATION_OPTIONS}")
