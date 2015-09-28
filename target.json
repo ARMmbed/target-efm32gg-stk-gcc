@@ -1,0 +1,52 @@
+{
+  "name": "stk3700-gcc",
+  "version": "0.2.0",
+  "inherits": {
+    "mbed-gcc": "*"
+  },
+  "description": "GCC target description for the STK3700 dev board.",
+  "licenses": [
+    {
+      "url": "https://spdx.org/licenses/Apache-2.0",
+      "type": "Apache-2.0"
+    }
+  ],
+  "keywords": [
+    "mbed-target:efm32gg",
+    "gcc"
+  ],
+  "similarTo": [
+    "stk3700",
+    "efm32gg990f",
+    "efm32gg",
+    "efm32",
+    "silabs",
+    "cortex-m3",
+    "armv7-m",
+    "arm",
+    "gcc",
+    "swo"
+  ],
+  "toolchain": "CMake/toolchain.cmake",
+  "debug-server": [
+    "JLinkGDBServer",
+    "-if",
+    "SWD",
+    "-speed",
+    "4000",
+    "-device",
+    "EFM32GG990F1024",
+    "-log",
+    "/tmp/jlink-efm.log"
+  ],
+  "scripts": {
+    "debug": [
+      "valinor",
+      "-t",
+      "uvision",
+      "--target",
+      "stk3700-gcc",
+      "$program"
+    ]
+  }
+}
