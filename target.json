@@ -1,5 +1,5 @@
 {
-  "name": "stk3700-gcc",
+  "name": "efm32gg-stk-gcc",
   "version": "0.2.0",
   "inherits": {
     "mbed-gcc": "*"
@@ -16,16 +16,14 @@
     "gcc"
   ],
   "similarTo": [
-    "stk3700",
-    "efm32gg990f",
+    "efm32gg-stk",
     "efm32gg",
     "efm32",
     "silabs",
     "cortex-m3",
     "armv7-m",
     "arm",
-    "gcc",
-    "swo"
+    "gcc"
   ],
   "toolchain": "CMake/toolchain.cmake",
   "debug-server": [
@@ -45,7 +43,7 @@
       "-t",
       "uvision",
       "--target",
-      "stk3700-gcc",
+      "efm32gg-stk",
       "$program"
     ]
   }

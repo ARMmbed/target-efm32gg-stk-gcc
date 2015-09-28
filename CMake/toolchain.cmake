@@ -1,9 +1,9 @@
 # Copyright (C) 2014 ARM Limited. All rights reserved.
 
-if(TARGET_STK3700_EFM32GG_GCC_TOOLCHAIN_INCLUDED)
+if(TARGET_EFM32GG_STK_GCC_TOOLCHAIN_INCLUDED)
     return()
 endif()
-set(TARGET_STK3700_EFM32GG_GCC_TOOLCHAIN_INCLUDED 1)
+set(TARGET_EFM32GG_STK_GCC_TOOLCHAIN_INCLUDED 1)
 
 # provide compatibility definitions for compiling with this target: these are
 # definitions that legacy code assumes will be defined. Before adding something
@@ -11,7 +11,7 @@ set(TARGET_STK3700_EFM32GG_GCC_TOOLCHAIN_INCLUDED 1)
 # definition that you're about to add to rely on the TARGET_LIKE_XXX
 # definitions that yotta provides based on the target.json file.
 #
-add_definitions("-DSTK3700 -DEFM32GG990F1024 -DEFM32GG -DEFM32")
+add_definitions("-DEFM32GG990F1024 -DEFM32GG -DEFM32")
 
 # append non-generic flags, and set EFM32GG-specific link script
 
