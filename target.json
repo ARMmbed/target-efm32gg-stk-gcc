@@ -1,6 +1,6 @@
 {
   "name": "efm32gg-stk-gcc",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Official mbed build target for the mbed EFM32GG STK3700 development board, using the GCC toolchain.",
   "licenses": [
     {
@@ -46,8 +46,8 @@
         "LED2": "LED0",
         "LED3": "LED0",
         "LED4": "LED1",
-        "SW0":  "PB9",
-        "SW1":  "PB10",
+        "SW0": "PB9",
+        "SW1": "PB10",
         "BTN0": "SW0",
         "BTN1": "SW1",
         "I2C_SDA": "PC4",
