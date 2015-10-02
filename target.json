@@ -1,18 +1,21 @@
 {
   "name": "efm32gg-stk-gcc",
   "version": "0.2.0",
-  "inherits": {
-    "mbed-gcc": "*"
-  },
-  "description": "GCC target description for the STK3700 dev board.",
+  "description": "Official mbed build target for the mbed EFM32GG STK3700 development board, using the GCC toolchain.",
   "licenses": [
     {
       "url": "https://spdx.org/licenses/Apache-2.0",
       "type": "Apache-2.0"
     }
   ],
+  "inherits": {
+    "mbed-gcc": "~0.1.0"
+  },
   "keywords": [
-    "mbed-target:efm32gg",
+    "mbed-target:efm32gg-stk",
+    "mbed-official",
+    "efm32gg",
+    "efm32gg-stk",
     "gcc"
   ],
   "similarTo": [
@@ -25,6 +28,71 @@
     "arm",
     "gcc"
   ],
+  "config": {
+    "hardware": {
+      "clock": {
+        "core": {
+          "source": "HFXO",
+          "frequency": 48000000
+        },
+        "low-energy": {
+          "source": "LFXO",
+          "frequency": 32768
+        }
+      },
+      "pins": {
+        "LED0": "PE2",
+        "LED1": "PE3",
+        "LED2": "LED0",
+        "LED3": "LED0",
+        "LED4": "LED1",
+        "SW0":  "PB9",
+        "SW1":  "PB10",
+        "BTN0": "SW0",
+        "BTN1": "SW1",
+        "I2C_SDA": "PC4",
+        "I2C_SCL": "PC5",
+        "SPI_MOSI": "PD0",
+        "SPI_MISO": "PD1",
+        "SPI_CLK": "PD2",
+        "SPI_CS": "PD3",
+        "UART_TX": "PD0",
+        "UART_RX": "PD1",
+        "SERIAL_TX": "PD0",
+        "SERIAL_RX": "PD1",
+        "STDIO_UART_TX": "PE0",
+        "STDIO_UART_RX": "PE1",
+        "USBTX": "PE0",
+        "USBRX": "PE1",
+        "EFM_BC_EN": "PF7"
+      }
+    },
+    "modules": {
+      "analogin": {
+        "size": 1
+      },
+      "analogout": {
+        "size": 1
+      },
+      "gpio": {
+        "size": 1
+      },
+      "i2c": {
+        "size": 2
+      },
+      "pwmout": {
+        "size": 1
+      },
+      "serial": {
+        "size": 7,
+        "stdio-uart": "UART0"
+      },
+      "spi": {
+        "size": 3,
+        "transaction-queue-size": 4
+      }
+    }
+  },
   "toolchain": "CMake/toolchain.cmake",
   "debug-server": [
     "JLinkGDBServer",
@@ -44,6 +112,12 @@
       "uvision",
       "--target",
       "efm32gg-stk",
+      "$program"
+    ],
+    "test": [
+      "mbed_test_wrapper",
+      "--target",
+      "EFM32GG_STK3700",
       "$program"
     ]
   }
