@@ -29,6 +29,14 @@
     "gcc"
   ],
   "config": {
+    "cmsis": {
+      "nvic": {
+        "ram_vector_address": "(&__start_vector_table__)",
+        "flash_vector_address": "0x0",
+        "user_irq_offset": 16,
+        "user_irq_number": 39
+      }
+    },
     "hardware": {
       "clock": {
         "core": {
