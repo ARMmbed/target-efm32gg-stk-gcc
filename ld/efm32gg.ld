@@ -45,9 +45,40 @@ ENTRY(Reset_Handler)
 
 SECTIONS
 {
+  /* ensure that uvisor bss is at the beginning of memory */
+  .uvisor.bss (NOLOAD):
+  {
+    . = ALIGN(32);
+    __uvisor_bss_start = .;
+
+    /* protected uvisor main bss */
+    . = ALIGN(32);
+    __uvisor_bss_main_start = .;
+    KEEP(*(.keep.uvisor.bss.main))
+    . = ALIGN(32);
+    __uvisor_bss_main_end = .;
+
+    /* protected uvisor secure boxes bss */
+    . = ALIGN(32);
+    __uvisor_bss_boxes_start = .;
+    KEEP(*(.keep.uvisor.bss.boxes))
+    . = ALIGN(32);
+    *("dma")
+    __uvisor_bss_boxes_end = .;
+
+    . = ALIGN(32);
+    __uvisor_bss_end = .;
+  } > RAM
+  
   .text :
   {
     KEEP(*(.isr_vector))
+    
+    /* uVisor code and data */
+    . = ALIGN(4);
+    __uvisor_main_start = .;
+    *(.uvisor.main)
+    __uvisor_main_end = .;
     *(.text*)
 
     KEEP(*(.init))
@@ -84,30 +115,33 @@ SECTIONS
   } > FLASH
   __exidx_end = .;
 
-  __etext = .;
-
-  /* Set stack size. Stack overflow will trigger HardFault.
-   */
+  /* .stack section doesn't contains any symbols. It is only
+   * used for linker to reserve space for the main stack section
+   * WARNING: .stack should come immediately after the last secure memory
+   * section.  This provides stack overflow detection. */
   .stack (NOLOAD):
   {
-      __stack_start__ = .;
-      *(.stack*);
-      . += 0x1000 - (. - __stack_start__);
-      . = ALIGN(4);
-      __stack_end__ = .;
+    __StackLimit = .;
+    *(.stack*);
+    . += 0x8000 - (. - __StackLimit);
   } > RAM
 
-  .data : AT (__etext)
+  /* Set stack top to end of RAM, and stack limit move down by
+   * size of stack_dummy section */
+  __StackTop = ADDR(.stack) + SIZEOF(.stack);
+  __StackLimit = ADDR(.stack);
+  PROVIDE(__stack = __StackTop);
+
+  .data :
   {
+    PROVIDE( __etext = LOADADDR(.data) );
+    
     __data_start__ = .;
-    *("dma")
     PROVIDE( __start_vector_table__ = .);
   	. += __vector_size;
   	PROVIDE( __end_vector_table__ = .);
     *(vtable)
     *(.data*)
-    . = ALIGN (4);
-    *(.ram)
 
     . = ALIGN(4);
     /* preinit data */
@@ -131,11 +165,36 @@ SECTIONS
 
     . = ALIGN(4);
     /* All data end */
+    . = ALIGN(32);
     __data_end__ = .;
 
-  } > RAM
+  } > RAM AT>FLASH
 
-  .bss :
+  /* uvisor configuration data */
+  .uvisor.secure :
+  {
+    . = ALIGN(32);
+    __uvisor_secure_start = .;
+
+    /* uvisor secure boxes configuration tables */
+    . = ALIGN(32);
+    __uvisor_cfgtbl_start = .;
+    KEEP(*(.keep.uvisor.cfgtbl))
+    . = ALIGN(32);
+    __uvisor_cfgtbl_end = .;
+
+    /* pointers to uvisor secure boxes configuration tables */
+    /* note: no further alignment here, we need to have the exact list of pointers */
+    __uvisor_cfgtbl_ptr_start = .;
+    KEEP(*(.keep.uvisor.cfgtbl_ptr_first))
+    KEEP(*(.keep.uvisor.cfgtbl_ptr))
+    __uvisor_cfgtbl_ptr_end = .;
+
+    . = ALIGN(32);
+    __uvisor_secure_end = .;
+  } >FLASH
+  
+  .bss (NOLOAD):
   {
     __bss_start__ = .;
     *(.bss*)
@@ -143,27 +202,20 @@ SECTIONS
     __bss_end__ = .;
   } > RAM
 
-  .heap :
+  .heap (NOLOAD):
   {
     __end__ = .;
-
-    __heap_start = .;
-    *(.heap*)
-
+    end = __end__;
+    *(.heap*);
+    . += (ORIGIN(RAM) + LENGTH(RAM) - .);
+    __HeapLimit = .;
   } > RAM
-
+  PROVIDE(__heap_size = SIZEOF(.heap));
+  PROVIDE(__mbed_sbrk_start = ADDR(.heap));
+  PROVIDE(__mbed_krbs_start = ADDR(.heap) + SIZEOF(.heap));
+    
   /* heap limit is all the available memory, */
   __heap_end = ORIGIN(RAM) + LENGTH(RAM);
-
-  PROVIDE(__heap_size = __heap_end - __heap_start);
-  PROVIDE(__mbed_sbrk_start = __heap_start);
-  PROVIDE(__mbed_krbs_start = __heap_end);
-
-  /* Set stack top to end of RAM, and stack limit move down by
-   * size of stack_dummy section */
-  __StackTop = __stack_end__;
-  __StackLimit = __stack_start__;
-  PROVIDE(__stack = __StackTop);
 
   /* Check if data + heap + stack exceeds RAM limit */
   ASSERT(__end__ <= __heap_end, "region RAM overflowed with stack")
