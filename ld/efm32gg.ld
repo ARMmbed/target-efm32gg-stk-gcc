@@ -75,6 +75,7 @@ SECTIONS
     KEEP(*(.isr_vector))
     
     /* uVisor code and data */
+    . = 0x100;
     . = ALIGN(4);
     __uvisor_main_start = .;
     *(.uvisor.main)
