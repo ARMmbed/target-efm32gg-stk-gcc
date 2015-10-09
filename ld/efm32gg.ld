@@ -67,6 +67,7 @@ SECTIONS
     __uvisor_bss_boxes_end = .;
 
     . = ALIGN(32);
+    . = 0x4000;
     __uvisor_bss_end = .;
   } > RAM
   
