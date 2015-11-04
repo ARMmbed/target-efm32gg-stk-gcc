@@ -90,6 +90,10 @@
       "lesense": {
         "port": "gpioPortC",
         "total-channels": 16
+      },
+      "capsense": {
+        "channels-in-use": 4,
+        "sensitivity": 90
       }
     },
     "modules": {
