@@ -19,6 +19,7 @@
     "gcc"
   ],
   "similarTo": [
+    "mbed-os",
     "efm32gg-stk",
     "efm32gg",
     "efm32",
