@@ -1,7 +1,7 @@
 {
   "name": "efm32gg-stk-gcc",
   "version": "0.3.4",
-  "description": "Official mbed build target for the mbed EFM32GG STK3700 development board, using the GCC toolchain.",
+  "description": "Official mbed build target for the STK3700 Starter Kit for EFM32GG, using the GCC toolchain.",
   "licenses": [
     {
       "url": "https://spdx.org/licenses/Apache-2.0",
@@ -13,6 +13,7 @@
   },
   "keywords": [
     "mbed-target:efm32gg-stk",
+    "mbed-target:efm32gg_stk3700",
     "mbed-official",
     "efm32gg",
     "efm32gg-stk",
