@@ -42,6 +42,11 @@
     "uvisor": {
       "present": false
     },
+    "mbed-os": {
+      "stdio": {
+        "default-baud": 115200
+      }
+    },
     "hardware": {
       "clock": {
         "core": {
