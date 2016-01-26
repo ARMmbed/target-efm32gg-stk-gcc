@@ -9,7 +9,7 @@
     }
   ],
   "inherits": {
-    "mbed-gcc": "~0.1.0"
+    "mbed-gcc": "^1.0.0"
   },
   "keywords": [
     "mbed-target:efm32gg-stk",
