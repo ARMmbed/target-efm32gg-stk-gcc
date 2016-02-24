@@ -26,9 +26,7 @@
     "efm32",
     "silabs",
     "cortex-m3",
-    "armv7-m",
-    "arm",
-    "gcc"
+    "armv7-m"
   ],
   "config": {
     "cmsis": {
@@ -48,6 +46,8 @@
       }
     },
     "hardware": {
+      "flash-size": 1024,
+      "ram-size": 128,
       "clock": {
         "core": {
           "source": "HFXO",
