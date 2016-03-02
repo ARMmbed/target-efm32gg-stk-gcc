@@ -4,7 +4,7 @@
   "description": "Official mbed build target for the STK3700 Starter Kit for Silicon Labs EFM32 Giant Gecko, using the GCC toolchain.",
   "license": "Apache-2.0",
   "inherits": {
-    "efm32gg-gcc": "~0.1.0"
+    "efm32gg-gcc": "^1.0.0"
   },
   "keywords": [
     "mbed-target:efm32gg-stk",
