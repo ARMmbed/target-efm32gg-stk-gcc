@@ -1,51 +1,23 @@
 {
   "name": "efm32gg-stk-gcc",
   "version": "0.5.0",
-  "description": "Official mbed build target for the STK3700 Starter Kit for EFM32GG, using the GCC toolchain.",
-  "licenses": [
-    {
-      "url": "https://spdx.org/licenses/Apache-2.0",
-      "type": "Apache-2.0"
-    }
-  ],
+  "description": "Official mbed build target for the STK3700 Starter Kit for Silicon Labs EFM32 Giant Gecko, using the GCC toolchain.",
+  "license": "Apache-2.0",
   "inherits": {
-    "mbed-gcc": "^1.0.0"
+    "efm32gg-gcc": "~0.1.0"
   },
   "keywords": [
     "mbed-target:efm32gg-stk",
     "mbed-target:efm32gg_stk3700",
     "mbed-official",
-    "efm32gg",
-    "efm32gg-stk",
-    "gcc"
+    "efm32gg-stk"
   ],
   "similarTo": [
-    "mbed-os",
-    "efm32gg-stk",
-    "efm32gg",
-    "efm32",
-    "silabs",
-    "cortex-m3",
-    "armv7-m"
+    "efm32gg-stk"
   ],
   "config": {
-    "cmsis": {
-      "nvic": {
-        "ram_vector_address": "(&__start_vector_table__)",
-        "flash_vector_address": "0x0",
-        "user_irq_offset": 16,
-        "user_irq_number": 39
-      }
-    },
-    "uvisor": {
-      "present": false
-    },
-    "mbed-os": {
-      "stdio": {
-        "default-baud": 115200
-      }
-    },
     "hardware": {
+      "device": "EFM32GG990F1024",
       "flash-size": 1024,
       "ram-size": 128,
       "clock": {
@@ -94,53 +66,17 @@
           "SCL": "PC5"
         }
       },
-      "lesense": {
-        "port": "gpioPortC",
-        "total-channels": 16
-      },
       "capsense": {
         "channels-in-use": 4,
         "sensitivity": 90
       }
     },
     "modules": {
-      "analogin": {
-        "size": 1
-      },
-      "analogout": {
-        "size": 1
-      },
-      "gpio": {
-        "size": 1
-      },
-      "i2c": {
-        "size": 2
-      },
-      "pwmout": {
-        "size": 1
-      },
       "serial": {
-        "size": 7,
         "stdio-uart": "UART0"
-      },
-      "spi": {
-        "size": 3,
-        "transaction-queue-size": 4
       }
     }
   },
-  "toolchain": "CMake/toolchain.cmake",
-  "debug-server": [
-    "JLinkGDBServer",
-    "-if",
-    "SWD",
-    "-speed",
-    "4000",
-    "-device",
-    "EFM32GG990F1024",
-    "-log",
-    "/tmp/jlink-efm.log"
-  ],
   "scripts": {
     "debug": [
       "valinor",

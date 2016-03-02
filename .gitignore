@@ -1,0 +1,12 @@
+# Windows
+Thumbs.db
+
+# OSX
+.DS_Store
+
+# yotta
+yotta_modules
+yotta_targets
+upload.tar.gz
+build
+.yotta.json
